@@ -1,9 +1,9 @@
-### Sujet 
+# Sujet 
 
-### Bank
+## Bank
 - Retirer                                   diminue solde
 - Deposer                                   ajouter solde
-- # Consulter le solde                      check solde avec card & code
+- ### Consulter le solde                      check solde avec card & code
 - Virement                                  ajoute solde chez userX diminuer chez userY
 - Consulter l'historique des opérations     
 - Faire un prêt                             check solde sufisant
@@ -27,7 +27,7 @@ POUR DIMANCHE
     npm init -y  // initialise projet -> créer package.json
     npm add typescript // Ajout typescript
 
-# Jest
+### Jest
     Doc : https://jestjs.io/fr/docs/getting-started
     npm add jest ts-jest // ajout jest
     npm install --save-dev jest typescript ts-jest @types/jest
@@ -35,5 +35,5 @@ POUR DIMANCHE
 
     touch banque.spec.ts // créer le fichier
 
-# Lancer test
+### Lancer test
     npm test
