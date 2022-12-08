@@ -37,3 +37,7 @@ POUR DIMANCHE
 
 ### Lancer test
     npm test
+
+### Lancer test with coverage
+    npx jest --coverage
+

@@ -4,18 +4,37 @@ export let Bank = class Bank {
         this.users = users;
     }
 
-    checkBalance(cardNumber, cardCode){
+    lookBalance(cardNumber, cardCode){
+        try {
+            let user =  this.checkUser(cardNumber, cardCode)
+            return user.balance
+        }
+        catch(err) {
+            return err
+        }
+    }
+
+    addBalance(cardNumber, cardCode, money){
+        try {
+            let user = this.checkUser(cardNumber, cardCode)
+            return user.balance + money
+        }
+        catch(err) {
+            return err
+        }
+    }
+
+    private checkUser(cardNumber, cardCode){
         let currentUser = null
         this.users.forEach(user => {
             if(user.cardNumber === cardNumber && user.cardCode === cardCode){
                 currentUser = user
             }
         })
-
         if(currentUser !== null){
             return currentUser
         }else{
-            return null
+            throw "Invalid user"
         }
     }
 
