@@ -30,6 +30,7 @@ export let Bank = class Bank {
             if(loan < user.balance){
                 return user.balance - loan
             }
+            return user.balance
         }
         catch(err) {
             return err
