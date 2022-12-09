@@ -24,6 +24,18 @@ export let Bank = class Bank {
         }
     }
 
+    takeLoan(cardNumber, cardCode, loan){
+        try {
+            let user = this.checkUser(cardNumber, cardCode)
+            if(loan < user.balance){
+                return user.balance - loan
+            }
+        }
+        catch(err) {
+            return err
+        }
+    }
+
     private checkUser(cardNumber, cardCode){
         let currentUser = null
         this.users.forEach(user => {
