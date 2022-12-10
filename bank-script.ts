@@ -24,7 +24,7 @@ export let Bank = class Bank {
         }
     }
 
-    takeLoan(cardNumber, cardCode, loan){
+    withDrawMoney(cardNumber, cardCode, loan){
         try {
             let user = this.checkUser(cardNumber, cardCode)
             if(loan < user.balance){

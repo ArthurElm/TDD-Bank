@@ -73,38 +73,38 @@ describe('Bank', () => {
         })
     })
 
-    describe('Take a loan', () => {
+    describe('Withdraw money', () => {
         let loan = 0;
-
-        describe('Take a loan with correct user and loan < balance', () => {
+        describe('Count < balance', () => {
             loan = 200
             it.each([
                 [[users[0].cardNumber, users[0].cardCode, loan], (users[0].balance - loan)],
                 [[users[2].cardNumber, users[2].cardCode, loan], (users[2].balance - loan)],
-            ])('Card n°%i : You just loan ' + loan + ' , balance is now : %o', (n, expected) => {
-                expect(bank.takeLoan(n[0], n[1], n[2])).toBe(expected)
+            ])('Card n°%i : You took ' + loan + ' , balance is now : %o', (n, expected) => {
+                expect(bank.withDrawMoney(n[0], n[1], n[2])).toBe(expected)
             })
         })
-        describe('Take a loan with correct user and loan > balance', () => {
+        describe('Count > balance', () => {
             loan = 2000
             it.each([
                 [[users[0].cardNumber, users[0].cardCode, loan], users[0].balance],
                 [[users[2].cardNumber, users[2].cardCode, loan], users[2].balance],
-            ])('Can\'t take a loan for card n°%i balance : '+ loan + ' > %o', (n, expected) => {
-                expect(bank.takeLoan(n[0], n[1], n[2])).toBe(expected)
+            ])('Can\'t take that amount for card n°%i balance : '+ loan + ' > %o', (n, expected) => {
+                expect(bank.withDrawMoney(n[0], n[1], n[2])).toBe(expected)
             })
         })
-        describe('Take a loan with invalid user', () => {
+        describe('Withdraw money with invalid user', () => {
             it.each([
                 [[users[0].cardNumber + "1", users[0].cardCode, loan], "Invalid user"],
                 [[users[0].cardNumber, users[0].cardCode + "1", loan], "Invalid user"],
                 [[users[0].cardNumber + "1", users[0].cardCode + "1", loan], "Invalid user"],
                 [[users[0].cardNumber + "A", users[0].cardCode + "B", loan], "Invalid user"],
             ])('Invalid card number or card code provided.', (n, expected) => {
-                expect(bank.takeLoan(n[0], n[1], n[2])).toBe(expected)
+                expect(bank.withDrawMoney(n[0], n[1], n[2])).toBe(expected)
             })
         })
     })
+
     describe('Devise', () => {
         let devise = ['euros' , 'dollars', 'yen'];
 
@@ -139,7 +139,7 @@ describe('Bank', () => {
                 [[users[0].cardNumber + "1", users[0].cardCode + "1", devise[0]], "Invalid user"],
                 [[users[0].cardNumber + "A", users[0].cardCode + "B", devise[0]], "Invalid user"],
             ])('Invalid card number or card code provided.', (n, expected) => {
-                expect(bank.takeLoan(n[0], n[1], n[2])).toBe(expected)
+                expect(bank.checkDevise(n[0], n[1], n[2])).toBe(expected)
             })
         })
     })
