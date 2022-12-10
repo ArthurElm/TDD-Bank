@@ -105,4 +105,42 @@ describe('Bank', () => {
             })
         })
     })
+    describe('Devise', () => {
+        let devise = ['euros' , 'dollars', 'yen'];
+
+        describe('Balance in EUROS', () => {
+            it.each([
+                [[users[0].cardNumber, users[0].cardCode, devise[0]], (users[0].balance)],
+                [[users[2].cardNumber, users[2].cardCode, devise[0]], (users[2].balance)],
+            ])('Card n°%i : Your balance is  : %o euros', (n, expected) => {
+                expect(bank.checkDevise(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+        describe('Balance in DOLLARS', () => {
+            it.each([
+                [[users[0].cardNumber, users[0].cardCode, devise[1]], users[0].balance * 1.0559],
+                [[users[2].cardNumber, users[2].cardCode, devise[1]], users[2].balance * 1.0559],
+            ])('Card n°%i : Your balance is  : %o dollars', (n, expected) => {
+                expect(bank.checkDevise(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+        describe('Balance in YEN', () => {
+            it.each([
+                [[users[0].cardNumber, users[0].cardCode, devise[2]], users[0].balance * 143],
+                [[users[2].cardNumber, users[2].cardCode, devise[2]], users[2].balance * 143],
+            ])('Card n°%i : Your balance is  : %o yen', (n, expected) => {
+                expect(bank.checkDevise(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+        describe('Balance and devises with invalid user', () => {
+            it.each([
+                [[users[0].cardNumber + "1", users[0].cardCode, devise[0]], "Invalid user"],
+                [[users[0].cardNumber, users[0].cardCode + "1", devise[0]], "Invalid user"],
+                [[users[0].cardNumber + "1", users[0].cardCode + "1", devise[0]], "Invalid user"],
+                [[users[0].cardNumber + "A", users[0].cardCode + "B", devise[0]], "Invalid user"],
+            ])('Invalid card number or card code provided.', (n, expected) => {
+                expect(bank.takeLoan(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+    })
 })
