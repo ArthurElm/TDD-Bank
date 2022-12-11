@@ -279,8 +279,8 @@ describe("Bank", () => {
     });
 
     describe("Get all operations if there is at least one", () => {
-      it.each(["string"])("No operations found", (expected) => {
-        expect(typeof bank.getOperations()).toBe(expected);
+      it("Operations found", () => {
+        expect(operations instanceof Array).toBe(true);
       });
     });
   });
