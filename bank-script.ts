@@ -103,6 +103,28 @@ export let Bank = class Bank {
         }
     }
 
+    loanMoney(cardNumber, cardCode, loan){
+        try {
+            let user = this.checkUser(cardNumber, cardCode)
+            let maxLoan = user.balance * 10
+
+            this.addOperation({
+                id: this.operations.length + 1,
+                sender: user,
+                type: "loan",
+                amount: loan,
+            });
+
+            if(loan <= maxLoan && loan >= 0){
+                return user.balance + loan
+            }
+            return user.balance
+        }
+        catch(err) {
+            return err
+        }
+    }
+
     addOperation(operation: OperationType) {
         try {
             operation.sender &&
