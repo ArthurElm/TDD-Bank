@@ -8,7 +8,8 @@ describe("Bank", () => {
     let cardCode = "123" + i;
     let balance = 1200;
     let name = "User" + i;
-    let user = new User(cardNumber, cardCode, balance, name);
+    let beneficiaries = [];
+    let user = new User(cardNumber, cardCode, balance, name, beneficiaries);
     users.push(user);
   }
 
@@ -370,4 +371,32 @@ describe("Bank", () => {
     });
   });
 
+//   describe("Add a beneficiary", () => {
+//     let correctBeneficiary = users[2];
+//     let invalidBeneficiary = new User("123456789", "123", 1200, "User");
+//
+//     describe("Add a Beneficiary with correct user", () => {
+//         it.each([[users[0], correctBeneficiary], true])("Beneficiary added", (n, expected) => {
+//             console.log(n)
+//             expect(bank.addBeneficiary(n[0],n[1])).toBe(expected);
+//         });
+//     });
+//
+//     bank.addBeneficiary(users[0], users[1])
+//
+//     describe("Add a Beneficiary with existing beneficiary", () => {
+//           it.each([[users[0], users[1]], "Beneficiary already exists in the array."])("Beneficiary already exists in the array.", (n, expected) => {
+//               expect(bank.addBeneficiary(n[0],n[1])).toBe(expected);
+//           });
+//       });
+//     describe("Add a Beneficiary with invalid user", () => {
+//         it.each([[[users[0], invalidBeneficiary], "Invalid user"]])(
+//             "Invalid user",
+//             (n, expected) => {
+//                 expect(bank.addBeneficiary(n[0],n[1])).toBe(expected);
+//             }
+//         );
+//     });
+//
+// });
 });

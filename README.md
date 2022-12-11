@@ -1,18 +1,18 @@
 # Sujet 
 
 ## Bank
-- Retirer                                   diminue solde
-- Deposer                                   ajouter solde
-- ### Consulter le solde                      check solde avec card & code
-- Virement                                  ajoute solde chez userX diminuer chez userY
+- Retirer                                  
+- Deposer                                  
+- Consulter le solde                      
+- Virement                                  
 - Consulter l'historique des opérations     
-- Faire un prêt                             check solde sufisant
+- Ajouter une opération (en fonction de l'action effectuée)
+- Faire un prêt                            
 - Gerer les devises                         
-- Ouvrir un compte                          créer user
-- Cloturer un compte                        supp user
-- Gerer plusieurs banques                   new bank diff users
-- Modifier un compte                        modif user
-- Gerer ses béneficiaries                   nouvelle propiété 
+- Ouvrir un compte                          
+- Cloturer un compte                        
+- Modifier un compte                       
+- Gerer ses béneficiaries (WIP)                
 
 1 - TDD (coverage 100%)
 2 - Code clean
@@ -41,3 +41,7 @@ POUR DIMANCHE
 ### Lancer test with coverage
     npx jest --coverage
 
+## NB
+Nous avons commencé la partie pour les bénéficiares mais nous avons manqué de temps. Nous avons souhaité laisser nos pistes de réflexion.
+
+Pour la ligne notée comme non couverte pas les tests (ligne 147), le cas ou le tableau d'opérations renvoyée par la méthode getOperations ne fonctionne pas dans le expect().

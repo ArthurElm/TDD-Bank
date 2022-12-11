@@ -192,6 +192,25 @@ export let Bank = class Bank {
         }
     }
 
+    // addBeneficiary(user, beneficiary) {
+    //     try {
+    //         let userToAddBeneficiary = this.checkUser(user.cardNumber, user.cardCode)
+    //         let beneficiaryForUser = this.checkUser(beneficiary.cardNumber, beneficiary.cardCode)
+    //
+    //         let userBeneficiaries = userToAddBeneficiary.beneficiaries
+    //
+    //         if(userBeneficiaries !== undefined){
+    //             if (userBeneficiaries.includes(userToAddBeneficiary)) {
+    //                 throw 'Beneficiary already exists in the array.';
+    //             }
+    //         }
+    //
+    //         return true
+    //     } catch (err) {
+    //         return err;
+    //     }
+    // }
+
     private checkAlreadyExist(cardNumber) {
         const exists = this.users.some((user) => user.cardNumber === cardNumber);
         if (exists) {
