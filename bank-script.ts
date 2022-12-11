@@ -53,6 +53,8 @@ export let Bank = class Bank {
         }
     }
 
+
+
     private checkUser(cardNumber, cardCode){
         let currentUser = null
         this.users.forEach(user => {
@@ -64,6 +66,19 @@ export let Bank = class Bank {
             return currentUser
         }else{
             throw "Invalid user"
+        }
+    }
+
+    addCollaborator(cardNumber, cardCode, collaborators){
+        try {
+            let user = this.checkUser(cardNumber, cardCode)
+            if(user.cardNumber === cardNumber && user.cardCode === cardCode){
+                collaborators.push('Coco');
+            }
+            return user.collaborators
+        }
+        catch(err) {
+            return err
         }
     }
 

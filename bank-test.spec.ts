@@ -9,7 +9,8 @@ describe('Bank', () => {
         let cardCode = "123" + i
         let balance = 1200
         let name = "User" + i
-        let user = new User(cardNumber, cardCode, balance, name)
+        let collaborators = []
+        let user = new User(cardNumber, cardCode, balance, name, collaborators)
         users.push(user)
     }
 
@@ -140,6 +141,27 @@ describe('Bank', () => {
                 [[users[0].cardNumber + "A", users[0].cardCode + "B", devise[0]], "Invalid user"],
             ])('Invalid card number or card code provided.', (n, expected) => {
                 expect(bank.takeLoan(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+    })
+    describe('Add a collaborator', () => {
+        let collaborators = []
+        describe('Add collaborator Coco', () => {
+            it.each([
+                [[users[0].cardNumber, users[0].cardCode, collaborators[0]], (collaborators[0])],
+                [[users[2].cardNumber, users[2].cardCode, collaborators[0]], (collaborators[0])],
+            ])('Card n°%i : Your balance is  : %o euros', (n, expected) => {
+                expect(bank.addCollaborator(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+        describe('Balance and devises with invalid user', () => {
+            it.each([
+                [[users[0].cardNumber + "1", users[0].cardCode, collaborators[3]], "Invalid user"],
+                [[users[0].cardNumber, users[0].cardCode + "1", collaborators[3]], "Invalid user"],
+                [[users[0].cardNumber + "1", users[0].cardCode + "1", collaborators[3]], "Invalid user"],
+                [[users[0].cardNumber + "A", users[0].cardCode + "B", collaborators[3]], "Invalid user"],
+            ])('Invalid card number or card code provided.', (n, expected) => {
+                expect(bank.addCollaborator(n[0], n[1], n[2])).toBe(expected)
             })
         })
     })
