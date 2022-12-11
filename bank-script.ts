@@ -72,6 +72,21 @@ export let Bank = class Bank {
         }
     }
 
+    loanMoney(cardNumber, cardCode, loan){
+        try {
+            let user = this.checkUser(cardNumber, cardCode)
+            let maxLoan = user.balance * 10
+
+            if(loan <= maxLoan && loan >= 0){
+                return user.balance + loan
+            }
+            return user.balance
+        }
+        catch(err) {
+            return err
+        }
+      }
+
     addUser(user) {
         try {
             if (!this.checkAlreadyExist(user.cardNumber)) {
