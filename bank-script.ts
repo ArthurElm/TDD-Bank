@@ -53,6 +53,24 @@ export let Bank = class Bank {
         }
     }
 
+    transferMoney(donor, beneficiary, amount){
+        try {
+            this.checkUser(donor.cardNumber, donor.cardCode)
+            this.checkUser(beneficiary.cardNumber, beneficiary.cardCode)
+
+            if(amount < donor.balance){
+                donor.balance = donor.balance - amount
+                return beneficiary.balance = beneficiary.balance + amount
+            }
+
+            return beneficiary.balance
+
+        }
+        catch(err) {
+            return err
+        }
+    }
+
     private checkUser(cardNumber, cardCode){
         let currentUser = null
         this.users.forEach(user => {

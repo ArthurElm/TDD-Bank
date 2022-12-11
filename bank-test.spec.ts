@@ -39,7 +39,6 @@ describe('Bank', () => {
 
     describe('Add balance', () => {
         let countAdded = 0
-
         describe('Add balance with valid user', () => {
             describe('Add balance > 0', () => {
                 countAdded = 200
@@ -140,6 +139,37 @@ describe('Bank', () => {
                 [[users[0].cardNumber + "A", users[0].cardCode + "B", devise[0]], "Invalid user"],
             ])('Invalid card number or card code provided.', (n, expected) => {
                 expect(bank.checkDevise(n[0], n[1], n[2])).toBe(expected)
+            })
+        })
+    })
+
+    describe('Transfer money', () => {
+        let amount = 0
+        describe('Transfer money with valid users', () => {
+
+            describe('Transfer money if doner has not enough money', () => {
+                amount = 10000
+                it.each([
+                    [[users[0], users[1], amount], users[1].balance],])
+                (users[0].name + ' try to donate ' + amount + ' to ' + users[1].name + ' but his balance is to low (' + users[0].balance + ')', (n, expected) => {
+                    expect(bank.transferMoney(n[0], n[1], n[2])).toBe(expected)})
+            })
+            describe('Transfer money if doner has enough money', () => {
+                amount = 200
+                it.each([
+                    [[users[0], users[1], amount], users[1].balance + amount],])
+                (users[1].name + ' received ' + amount + ' from ' + users[0].name + '. His solde was ' + users[1].balance + ' and is now ' + (users[1].balance + amount) , (n, expected) => {
+                    expect(bank.transferMoney(n[0], n[1], n[2])).toBe(expected)})
+            })
+        })
+
+        describe('Transfer money with invalid user', () => {
+            it.each([
+                [[users[0], "InvalidUser", amount], "Invalid user"],
+                [['InvalidUser', users[0], amount], "Invalid user"],
+                [['InvalidUser', "InvalidUser", amount], "Invalid user"],
+            ])("Invalid card number or card code provided.", (n, expected) => {
+                expect(bank.transferMoney(n[0], n[1], n[2])).toBe(expected)
             })
         })
     })
