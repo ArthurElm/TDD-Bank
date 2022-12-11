@@ -1,7 +1,11 @@
+import { OperationType, UserType } from "./interfaces";
+
 export let Bank = class Bank {
-  private users: any;
-  constructor(users) {
+  private users: UserType[];
+  private operations: OperationType[];
+  constructor(users, operations) {
     this.users = users;
+    this.operations = operations;
   }
 
   lookBalance(cardNumber, cardCode) {
@@ -16,6 +20,14 @@ export let Bank = class Bank {
   addBalance(cardNumber, cardCode, money) {
     try {
       let user = this.checkUser(cardNumber, cardCode);
+
+      this.addOperation({
+        id: this.operations.length + 1,
+        receiver: user,
+        type: "add",
+        amount: money,
+      });
+
       return user.balance + money;
     } catch (err) {
       return err;
@@ -28,6 +40,12 @@ export let Bank = class Bank {
       if (loan < user.balance) {
         return user.balance - loan;
       }
+      this.addOperation({
+        id: this.operations.length + 1,
+        sender: user,
+        type: "loan",
+        amount: loan,
+      });
       return user.balance;
     } catch (err) {
       return err;
@@ -45,25 +63,52 @@ export let Bank = class Bank {
     }
   }
 
-  deleteUser(user) {
+  updateUser(user) {
     try {
       let thisUser = this.checkUser(user.cardNumber, user.cardCode);
-      this.users.splice(this.users.indexOf(thisUser), 1);
+      this.users[this.users.indexOf(thisUser)] = user;
       return true;
     } catch (err) {
       return err;
     }
   }
 
-  // updateUser(user) {
-  //   try {
-  //     let thisUser = this.checkUser(user.cardNumber, user.cardCode);
-  //     thisUser.balance = user.balance;
-  //     thisUser.name = user.name;
-  //   } catch (err) {
-  //     return err;
-  //   }
-  // }
+  deleteUser(user) {
+    try {
+      let thisUser = this.checkUser(user.cardNumber, user.cardCode);
+      this.users.filter((u) => u.cardNumber !== thisUser.cardNumber);
+      return true;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  addOperation(operation: OperationType) {
+    try {
+      operation.sender &&
+        this.checkUser(operation.sender.cardNumber, operation.sender.cardCode);
+
+      operation.receiver &&
+        this.checkUser(
+          operation.receiver.cardNumber,
+          operation.receiver.cardCode
+        );
+
+      this.operations.push(operation);
+      return true;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  getOperations() {
+    return this.operations.length > 0 ? this.operations : "No operations found";
+  }
+
+  flushOperations() {
+    this.operations = [];
+    return "Operations flushed";
+  }
 
   private checkUser(cardNumber, cardCode) {
     let currentUser = null;
